@@ -25,3 +25,6 @@ def main(base_dir, new_dir):
     if can_proceed:
         duplicate_titles = get_duplicates(base_dir, new_dir)
         print duplicate_titles
+
+
+main(BASE_DIR, NEW_DIR)
