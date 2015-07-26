@@ -2,7 +2,7 @@ import os
 
 NEW_DIR = "E:\English Movies"
 BASE_DIR = "D:\English Movies"
-SEPARATOR = "//"
+SEPARATOR = "\\"
 
 
 def verify(directory_name):
@@ -15,9 +15,19 @@ def get_duplicates(base_dir, new_dir):
     for filename in new_files:
         if filename in original_files:
             print "DUPLICATE : ", filename
-            original_size = os.path.getsize(base_dir + SEPARATOR + filename)
-            new_size = os.path.getsize(new_dir + SEPARATOR + filename)
-            print "original size : %d              new size : %d" % (original_size, new_size)
+            print base_dir + SEPARATOR + filename
+            original_size = get_size(base_dir + SEPARATOR + filename)
+            new_size = get_size(new_dir + SEPARATOR + filename)
+            print "original: %d\t\t\t\tnew: %d" % (original_size, new_size)
+
+
+def get_size(start_path='.'):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
 
 
 def main(base_dir, new_dir):
