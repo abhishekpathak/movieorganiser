@@ -1,4 +1,5 @@
 import os
+from hurry.filesize import size
 
 NEW_DIR = "E:\English Movies"
 BASE_DIR = "D:\English Movies"
@@ -25,8 +26,9 @@ def get_size(start_path='.'):
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
         for f in filenames:
-            fp = os.path.join(dirpath, f)
-            total_size += os.path.getsize(fp)
+            if not (f.endswith(".url") or f.endswith(".srt") or f.endswith("sub")):
+                fp = os.path.join(dirpath, f)
+                total_size += size(os.path.getsize(fp))
     return total_size
 
 
